@@ -4,7 +4,7 @@ import TableFormFc from './TableFormFC';
 
 export interface ICrudCompState{
     name: string,
-    email?: string,
+    email: string,
     edit?: boolean,
     listClient? : ICrudCompState[]
 }
@@ -100,13 +100,23 @@ export default class CRUDComp extends React.Component<ICrudCompState>{
 
             const {name, email , listClient} = this.state;
             
-            const cli = (listClient == undefined ? Array<ICrudCompState>() : listClient);
+            const table = (listClient === undefined ? Array<ICrudCompState>() : listClient);
+
+            const headerProps = {handleChange: this.handleChange,
+                addClient:this.addClient, 
+                name, 
+                email}
+                
+            const tableProps = {table,handleDelete: 
+                this.handleDelete, 
+                handleEdit : this.handleEdit, 
+                save: this.save, 
+                handleChange: this.handleChangeEdit}
 
             return <>
                 <div className="offset-md-2 form-group">
-                    <HeaderFormFC name={name} email={email} handleChange={this.handleChange} addClient={this.addClient}/>
-                    <TableFormFc table={cli} handleDelete={this.handleDelete} handleEdit={this.handleEdit} 
-                    handleChange={this.handleChangeEdit} save={this.save}  /> 
+                    <HeaderFormFC {...headerProps}/>
+                    <TableFormFc {...tableProps} /> 
                 </div>
             </>
         }
