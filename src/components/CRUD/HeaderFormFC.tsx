@@ -1,12 +1,13 @@
-import React, { ChangeEvent, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import {ICrudCompState} from './CRUDComp';
 
 interface IProps extends ICrudCompState{
     handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+    addClient: () => void
 }
 
-const HeaderFormFC : React.FC<IProps> = ({name, email, handleChange} :  IProps) => {
+const HeaderFormFC : React.FC<IProps> = ({name, email, handleChange, addClient} :  IProps) => {
 
     const [errorMessages, setErrorMessages] = useState({nameError: '', emailError: ''});
 
@@ -27,20 +28,19 @@ const HeaderFormFC : React.FC<IProps> = ({name, email, handleChange} :  IProps) 
     },[name, email]);
 
     return <>
-        <div>
-            <label>Name</label>
-            <input type="text" name="name" id="name" value={name} onChange={handleChange}/>
-            <p>{errorMessages.nameError}</p>
+        <div className="form-row" >
+            <div className="col">
+                <input className="form-control" type="text" name="name" id="name" placeholder='Name' value={name} onChange={handleChange}/>
+                <p className="text-danger">{errorMessages.nameError}</p>
+            </div>
+            <div className="col">
+                <input className="form-control" type="email" name="email" id="email" placeholder='e-mail' value={email} onChange={handleChange}/>
+                <p className="text-danger">{errorMessages.emailError}</p>
+            </div>
+            <div className="col">
+                <button className="btn btn-outline-primary" onClick={addClient}>Add</button>
+            </div>
         </div>
-        <div>
-            <label>Email</label>
-            <input type="email" name="email" id="email" value={email} onChange={handleChange}/>
-            <p>{errorMessages.emailError}</p>
-        </div>
-        <ul>
-            <li>name - {name}</li>
-            <li>email - {email}</li>
-        </ul>
     </>
 
 }

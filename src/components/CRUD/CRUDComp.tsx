@@ -1,6 +1,4 @@
 import React from 'react';
-import { Button } from 'reactstrap';
-import EditTableReducer from './EditTableReducer';
 import HeaderFormFC from './HeaderFormFC';
 import TableFormFc from './TableFormFC';
 
@@ -67,6 +65,14 @@ export default class CRUDComp extends React.Component<ICrudCompState>{
            this.setState({ listClient: filter });
         }
 
+        validateInputs(){
+            let {name, email} = this.state;
+
+            if(name.length === 0){
+
+            }
+        }
+
         addClient = () => {
 
             let listClient = [...this.state.listClient == null ? 
@@ -74,7 +80,7 @@ export default class CRUDComp extends React.Component<ICrudCompState>{
             
             listClient.push(this.state);
 
-            this.setState({ listClient } )
+            this.setState({ listClient , name : '', email: ''} )
         }
 
         save = (index: number, line : ICrudCompState) => {
@@ -97,12 +103,11 @@ export default class CRUDComp extends React.Component<ICrudCompState>{
             const cli = (listClient == undefined ? Array<ICrudCompState>() : listClient);
 
             return <>
-                <HeaderFormFC name={name} email={email} handleChange={this.handleChange}/>
-                <Button onClick={this.addClient}>Add</Button>
-                <TableFormFc table={cli} handleDelete={this.handleDelete} 
-                handleEdit={this.handleEdit} 
-                handleChange={this.handleChangeEdit} 
-                save={this.save}  /> 
+                <div className="offset-md-2 form-group">
+                    <HeaderFormFC name={name} email={email} handleChange={this.handleChange} addClient={this.addClient}/>
+                    <TableFormFc table={cli} handleDelete={this.handleDelete} handleEdit={this.handleEdit} 
+                    handleChange={this.handleChangeEdit} save={this.save}  /> 
+                </div>
             </>
         }
 }

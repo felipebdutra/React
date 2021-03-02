@@ -1,7 +1,5 @@
-import React, { useEffect, useReducer } from 'react';
-import { Button } from 'reactstrap';
+import React from 'react';
 import { ICrudCompState } from './CRUDComp';
-import EditTableReducer, {EditTableAction, EditTableActionType} from './EditTableReducer';
 
 interface IProps{
     handleDelete: (index: number) => void,
@@ -12,24 +10,15 @@ interface IProps{
 
 const TableLine : React.FC<IProps> = ({line, index, handleDelete, handleEdit} : IProps) =>{
 
-    const editAction : EditTableAction = {
-        type : EditTableActionType.Edit
-    }
-
-   const [stateLine, dispacher] = useReducer(EditTableReducer, line)
-
-    console.log(stateLine);
-
     return <>
-            <tr key={index}>
-                <td>{line.name}</td>
-                <td>{line.email}</td>
-                <td>
-                    <Button color='danger' onClick={() => handleDelete(index)} >X</Button>
-                </td>
-                <td>
-                    <Button color='info' onClick={() => handleEdit(index)} >Edit</Button>
-                    {/* <Button color='info' onClick={() => dispacher(editAction)} >Edit</Button> */}
+            <tr className="d-flex" key={index}>
+                <td className="col-4">{line.name}</td>
+                <td className="col-3">{line.email}</td>
+                <td className="col-2">
+                    <div className="input-group">
+                        <button className='btn btn-outline-danger form-control' onClick={() => handleDelete(index)} >X</button>
+                        <button className='btn btn-outline-primary form-control' onClick={() => handleEdit(index)} >Edit</button>
+                    </div>
                 </td>
             </tr>
         </>

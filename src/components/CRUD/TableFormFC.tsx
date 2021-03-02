@@ -1,5 +1,4 @@
-import React, { useEffect, useReducer } from "react";
-import { Button, Table } from "reactstrap";
+import React from "react";
 import {ICrudCompState} from './CRUDComp';
 import EditLineTableFC from "./EditLineTableFC";
 import LineTableFC from "./LineTableFC";
@@ -28,14 +27,9 @@ const createLine = (index: number,
 }
 
 const TableFormFc : React.FC<IProps> = ({table, handleDelete, handleEdit,handleChange, save} : IProps) => {
-
-//extop reducer - https://reactjs.org/docs/hooks-reference.html#usereducer
-
-
-//const [state, discharger] = useReducer(reducer, initialState);
   
     return <>
-      <Table hover>
+      <table className="table table-borderless table-hover">
             <tbody>
                 {table.map((line,index) => 
                    {
@@ -43,7 +37,7 @@ const TableFormFc : React.FC<IProps> = ({table, handleDelete, handleEdit,handleC
                     }
                  )}
                 </tbody>
-        </Table>
+        </table>
     </>
 }
 
